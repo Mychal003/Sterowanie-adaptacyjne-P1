@@ -9,8 +9,8 @@ c = 0.3
 N = 800
 t = np.linspace(0, 40, N)
 
-# Generowanie szumu
-z = numpy.random.rand(N) * 2 * c - c
+# Generowanie szumu z rozkładu normalnego
+z = numpy.random.normal(0, c, N)  # średnia = 0, odchylenie standardowe = c
 
 # Generowanie sygnału trójkątnego
 xTrue = sawtooth(2 * np.pi * 0.2 * t, 0.5)  # 0.5 oznacza sygnał trójkątny
@@ -20,7 +20,7 @@ x = xTrue + z
 
 # Wykres szumu i sygnału zakłóconego
 plt.figure()
-plt.plot(t, z, markersize=1, marker='o', linestyle='None', label='Szum')
+plt.plot(t, z, markersize=1, marker='o', linestyle='None', label='Szum (normalny)')
 plt.plot(t, x, label='Sygnał zakłócony')
 plt.grid()
 plt.legend()
@@ -81,8 +81,8 @@ varianceArray = np.zeros(20)
 mse = np.zeros(20)
 xEstimated = np.zeros(N)
 for i, c in enumerate(cForMSE):
-    varianceArray[i] = (c**2) / 3
-    z = numpy.random.rand(N) * 2 * c - c
+    varianceArray[i] = (c**2)
+    z = numpy.random.normal(0, c, N)  # średnia = 0, odchylenie standardowe = c
     x = xTrue + z
     # Wykonujemy badania dla przykładowego h = 3
     for k in range(3, N):
